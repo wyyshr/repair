@@ -1,0 +1,27 @@
+page{
+  background-color: rgb(245, 245, 245);
+  .repairer_list_page{
+    margin: 30rpx;
+    .item{
+      background-color: #fff;
+      padding: 20rpx;
+      display: flex;
+      height: 200rpx;
+      margin-bottom: 30rpx;
+      border-radius: 5rpx;
+      align-items: center;
+      color: #6b6b6b;
+      .left{
+        display: flex;
+        flex-direction: column;
+        flex: 3;
+        view{
+          margin: 10rpx 0;
+        }
+      }
+      .right{
+        flex: 1;
+      }
+    }
+  }
+}

@@ -1,0 +1,14 @@
+.at-button--secondary{
+  color: #4db6ac;
+  border: 1PX solid #4db6ac;
+}
+.at-button--primary{
+  border: 1PX solid #4db6ac;
+  background: #4db6ac;
+}
+.at-fab{
+  background: #4db6ac;
+  &:active{
+    background: #43a097;
+  }
+}

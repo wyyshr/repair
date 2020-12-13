@@ -1,0 +1,19 @@
+page{
+  background-color: rgb(245, 245, 245);
+  .detail_page{
+    margin: 30rpx;
+    background-color: #fff;
+    padding: 20rpx;
+    .detail_items{
+      display: flex;
+      justify-content: space-between;
+      height: 100rpx;
+      text{
+        line-height: 100rpx;
+        max-width: 300rpx;
+        overflow: auto;
+        white-space: nowrap;
+      }
+    }
+  }
+}

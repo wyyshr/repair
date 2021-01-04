@@ -1,5 +1,10 @@
 page{
   background-color: rgb(245, 245, 245);
+  .no-data{
+    text-align: center;
+    color: rgb(184, 184, 184);
+    padding: 30rpx;
+  }
   .repairer_list_page{
     margin: 30rpx;
     .item{

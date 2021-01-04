@@ -1,5 +1,10 @@
 .list_page{
   margin: 30rpx;
+  .no-data{
+    text-align: center;
+    color: rgb(184, 184, 184);
+    padding: 30rpx;
+  }
   .list_wrap{
     margin-bottom: 112rpx;
     .list_item{

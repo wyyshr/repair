@@ -40,6 +40,7 @@ export interface HomeState {
   list: Array<ListType>
   identity: number
   userName: string
+  getRepairer: () => void
 }
  
 class Home extends React.Component<HomeProps, HomeState> {
@@ -50,6 +51,7 @@ class Home extends React.Component<HomeProps, HomeState> {
       list: [],
       identity: 0,
       userName: '',
+      getRepairer: null
     };
   }
   componentDidMount() {
@@ -58,7 +60,13 @@ class Home extends React.Component<HomeProps, HomeState> {
   }
   componentDidShow() {
     const { userName } = Taro.getStorageSync('userInfo') as any
+    const { getRepairer } = this.state
     this.getList(userName)
+    getRepairer && getRepairer()
+  }
+  // 操作后更新维修人员列表
+  getRepairers = (getRepairer: () => void) => {
+    this.setState({ getRepairer })
   }
   handleTabBarClick = e => {
     const { userName } = this.state
@@ -115,7 +123,7 @@ class Home extends React.Component<HomeProps, HomeState> {
     ]
     return (
       <MovableArea className="home_page" style={{width: '100%', height: '100%'}}>
-        <List list={list} updateList={this.updateList} />
+        <List list={list} updateList={this.updateList} getRepairers={this.getRepairers} />
         <AtTabBar
           fixed
           color='#8a8a8a'

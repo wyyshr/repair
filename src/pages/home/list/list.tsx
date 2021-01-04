@@ -16,6 +16,7 @@ export type RepairerType = {
 export interface ListProps {
   list: ListType[]
   updateList: (list) => void
+  getRepairers: (func: () => void) => void
 }
  
 export interface ListState {
@@ -45,23 +46,23 @@ class List extends React.Component<ListProps, ListState> {
   }
   componentDidMount() {
     const { identity } = Taro.getStorageSync('userInfo') as any
+    const { getRepairers } = this.props
     this.setState({ identity })
-    this.getRepairer()
+    getRepairers(this.getRepairer)
   }
   // 获取维修员
-  async getRepairer() {
-    // e.stopPropagation()   // 阻止冒泡
+  getRepairer = async () => {
     const { code, success, data } = await ajax({
       url: PATH.getRepairer
     }) as AjaxResType<RepairerType[]>
     if(code == 1 && success){
       this.setState({ repairers: data })
     }
-    
   }
   // 选择维修人员
   handleSelectRepairer = async (e, v, i) => {
     const repairNameIndex = parseInt(e.detail.value)
+    if(!v.repairer[repairNameIndex]) return Taro.atMessage({message: '请选择人员', type: 'warning'})
     const { updateList, list } = this.props
     this.setState({repairNameIndex})
     const { code, success } = await ajax({
@@ -169,7 +170,9 @@ class List extends React.Component<ListProps, ListState> {
       <View className="list_page">
         <AtMessage />
         {/* 报修列表 */}
-        <View className="list_wrap">
+        {
+          LIST.length > 0 ?
+          <View className="list_wrap">
           {
             LIST.map((v, i) => 
             <View className="list_item" onClick={() => Taro.navigateTo({url: `/pages/detail/detail?repairNumber=${v.repairNumber}`})}>
@@ -209,7 +212,10 @@ class List extends React.Component<ListProps, ListState> {
             </View>
             )
           }
-        </View>
+        </View> :
+        <View className="no-data">暂无数据</View>
+        }
+        
         {/* 解决报修二次确认弹框 */}
         <AtModal
           isOpened={isModalShow}

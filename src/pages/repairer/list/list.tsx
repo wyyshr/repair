@@ -19,7 +19,7 @@ class List extends React.Component<ListProps, ListState> {
     this.state = {};
   }
   render() { 
-    const { list } = this.props
+    const { list = [] } = this.props
     const type = {
       1: '供水',
       2: '电力',
@@ -28,6 +28,7 @@ class List extends React.Component<ListProps, ListState> {
     return (
       <View className="repairer_list_page">
         {
+          list.length > 0 ?
           list.map(v => (
             <View className="item">
               <View className="left">
@@ -39,7 +40,8 @@ class List extends React.Component<ListProps, ListState> {
                 <AtButton type="primary" onClick={() => this.props.delete(v.id)}>删除</AtButton>
               </View>
             </View>
-          ))
+          )) :
+          <View className="no-data">暂无数据</View>
         }
       </View>
     );

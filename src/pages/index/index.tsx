@@ -50,13 +50,15 @@ export default class Index extends Component<IndexProps, IndexState> {
       avatarUrl
     }
     const res = await ajax({ url: PATH.login, method: 'post', data })
-    const { code, success } = res as AjaxResType<any>
+    const { code, success, msg } = res as AjaxResType<any>
     if(code == 1 && success) {
       Taro.setStorageSync('userInfo', data)
       Taro.atMessage({'message': '登陆成功', 'type': 'success'})
       setTimeout(() => {
         Taro.redirectTo({url: `/pages/home/home?identity=${identity}`})
       }, 1500);
+    } else {
+      Taro.atMessage({message: msg, type: 'error'})
     }
   }
   render () {
